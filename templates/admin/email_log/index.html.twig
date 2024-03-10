@@ -1,0 +1,35 @@
+{# templates/admin/email_log/index.html.twig #}
+
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% block title %}Email Logs{% endblock %}
+
+{% block content %}
+    <div class="ui segment">
+        <h1>Email Logs</h1>
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Recipient Email</th>
+                    <th>Subject</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in emailLogs %}
+                    <tr>
+                        <td>{{ log.recipientEmail }}</td>
+                        <td>{{ log.emailSubject }}</td>
+                        <td>{{ log.dateTime|date('Y-m-d H:i:s') }}</td>
+                        <td>{{ log.status }}</td>
+                        <td>
+                            <a href="{{ path('admin_email_log_resend', {'id': log.id}) }}" class="btn btn-primary">Resend</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

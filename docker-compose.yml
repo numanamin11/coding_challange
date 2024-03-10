@@ -47,11 +47,11 @@ services:
       - MYSQL_USER=sylius
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-nopassword}
     volumes:
-      - mysql-data:/var/lib/mysql:rw
+      #- mysql-data:/var/lib/mysql:rw
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/mysql/data:/var/lib/mysql:rw,delegated
+      - ./docker/mysql/data:/var/lib/mysql:rw,delegated
     ports:
-      - "${MYSQL_PORT:-3306}:3306"
+      - "${MYSQL_PORT:-3303}:3306"
     cap_add:
       - SYS_NICE # prevent "mbind: Operation not permitted" errors
 

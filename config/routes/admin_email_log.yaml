@@ -1,0 +1,9 @@
+admin_email_logs:
+    path: /admin/email-logs
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\Admin\EmailLogController::index
+        _sylius:
+            template: admin/email_log/index.html.twig
+            grid: app_admin_email_log
+            section: admin

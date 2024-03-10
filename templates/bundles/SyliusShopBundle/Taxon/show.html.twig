@@ -1,0 +1,12 @@
+{% block content %}
+  {{ parent() }}
+
+  <div class="taxon-banners">
+    {% for banner in banners %}
+      <div class="banner">
+        <img src="{{ asset(banner.path) }}" alt="{{ banner.name }}">
+        {# Other banner details here #}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
