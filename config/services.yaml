@@ -28,3 +28,33 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+    
+    app.form.extension.banner_type_extension:
+        class: App\Form\Type\BannerTypeTaxon
+        tags:
+            - { name: 'form.type_extension', extended_type: BitBag\SyliusBannerPlugin\Form\Type\BannerType }
+
+
+    App\EventListener\TaxonBannerListener:
+        arguments:
+            $requestStack: '@request_stack'
+            $customBannerService: '@App\Service\CustomBannerService'
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.controller', method: 'onKernelController' }
+
+    App\Service\CustomBannerService:
+        arguments:
+            $connection: '@doctrine.dbal.default_connection'
+
+
+    app.listener.email_logging:
+        class: App\EventListener\EmailLoggingListener
+        arguments: ['@doctrine.orm.entity_manager',$logger: '@logger']
+        tags:
+            - { name: 'kernel.event_listener', event: 'mailer.send', method: 'onEmailSend' }
+
+    app.listener.admin_menu:
+        class: App\EventListener\AdminMenuListener
+        tags:
+            - { name: 'kernel.event_listener', event: 'sylius.menu.admin.main', method: 'addAdminMenuItem' }
+
